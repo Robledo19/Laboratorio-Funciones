@@ -3,7 +3,7 @@ const buttonAfterElement = document.getElementById('button-after');
 const buttonResetElement = document.getElementById('button-reset')
 const resetElement = document.getElementById('reset')
 const numberElement = document.getElementById('number')
-const inputNumberElement = document.getElementById('input-number') as HTMLInputElement;
+const inputNumberElement = document.getElementById('input-number')
 const setButtonElement = document.getElementById('set-button')
 let counter = 0;
 
@@ -29,8 +29,8 @@ const lessNumber = () =>{
 }
 
 const updateNumberFromInput = () => {
- if(numberElement){
-    const newValue = parseInt(inputNumberElement.value)
+    if (numberElement && inputNumberElement instanceof HTMLInputElement) {
+        const newValue = parseInt(inputNumberElement.value)
     if(!isNaN(newValue)){
         counter = newValue
         updateNumber(counter)
@@ -40,10 +40,23 @@ const updateNumberFromInput = () => {
 }
 
 
-buttonAfterElement?.addEventListener('click', addNumber)
-buttonBeforeElement?.addEventListener('click', lessNumber)
-buttonResetElement?.addEventListener('click', ()=> {counter = 0; updateNumber(counter)})
-setButtonElement?.addEventListener('click', updateNumberFromInput)
+if (buttonAfterElement instanceof HTMLButtonElement) {
+    buttonAfterElement.addEventListener('click', addNumber);
+}
 
+if (buttonBeforeElement instanceof HTMLButtonElement) {
+    buttonBeforeElement.addEventListener('click', lessNumber);
+}
+
+if (buttonResetElement instanceof HTMLButtonElement) {
+    buttonResetElement.addEventListener('click', () => {
+        counter = 0;
+        updateNumber(counter);
+    });
+}
+
+if (setButtonElement instanceof HTMLButtonElement) {
+    setButtonElement.addEventListener('click', updateNumberFromInput);
+}
 
 
